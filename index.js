@@ -21,6 +21,14 @@ async function initMap() {
             {
                 featureType: 'road',
                 stylers: [{ visibility: 'off' }]
+            },
+            {
+                featureType: 'water',
+                stylers: [{ color: '#000000' }] // black water
+            },
+            {
+                featureType: 'landscape',
+                stylers: [{ color: '#0c0c0c' }] // very dark gray land
             }
         ]
     });
