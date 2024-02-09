@@ -42,7 +42,6 @@ class FlightCostCalculator
     {
         $this->results = $this->sql->query("SELECT * FROM `CDR` WHERE `COORDREQ` = 'N' AND `LENGTH` > 0 ORDER BY RAND() LIMIT 1")->fetch_all(MYSQLI_ASSOC);
         $this->length = (int)$this->results[0]['LENGTH'];
-        print_r($this->results[0]);
     }
 
     private function calculateWeights()
@@ -84,6 +83,7 @@ class FlightCostCalculator
 
     public function displayResults()
     {
+        print_r($this->results[0]);
         printf(
             "Passengers: %s (%s lbs.), Baggage/Cargo: %s lbs, Total %s lbs.\n\n",
             $this->pax,
