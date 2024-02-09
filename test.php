@@ -92,13 +92,40 @@ class FlightCostCalculator
         }
         $origin = [
             'id' => $result['ARPT_ID'],
-            'name' => $result['ARPT_NAME'],
+            'icao' => 'K' . $result['ARPT_ID'],
             'city' => $result['CITY'],
             'state' => $result['STATE_NAME'],
             'lat' => $result['LAT_DECIMAL'],
             'lon' => $result['LONG_DECIMAL']
         ];
         echo ("Current Location: {$origin['id']}\n{$origin['name']}\n{$origin['city']}, {$origin['state']}\n{$origin['lat']}, {$origin['lon']}\n\n");
+
+        $from = substr($this->results[0]['ORIG'], 1);
+        $result = $this->sql->query("SELECT * FROM `APT_BASE` WHERE `ARPT_ID` = '$from'")->fetch_assoc();
+        $from = [
+            'id' => $result['ARPT_ID'],
+            'icao' => 'K' . $result['ARPT_ID'],
+            'name' => $result['ARPT_NAME'],
+            'city' => $result['CITY'],
+            'state' => $result['STATE_NAME'],
+            'lat' => $result['LAT_DECIMAL'],
+            'lon' => $result['LONG_DECIMAL']
+        ];
+        echo ("Pickup Location: {$from['id']}\n{$from['name']}\n{$from['city']}, {$from['state']}\n{$from['lat']}, {$from['lon']}\n\n");
+
+        $to = substr($this->results[0]['DEST'], 1);
+        $result = $this->sql->query("SELECT * FROM `APT_BASE` WHERE `ARPT_ID` = '$to'")->fetch_assoc();
+        $to = [
+            'id' => $result['ARPT_ID'],
+            'icao' => 'K' . $result['ARPT_ID'],
+            'name' => $result['ARPT_NAME'],
+            'city' => $result['CITY'],
+            'state' => $result['STATE_NAME'],
+            'lat' => $result['LAT_DECIMAL'],
+            'lon' => $result['LONG_DECIMAL']
+        ];
+        echo ("Dropoff Location: {$to['id']}\n{$to['name']}\n{$to['city']}, {$to['state']}\n{$to['lat']}, {$to['lon']}\n\n");
+
         print_r($this->results[0]);
         printf(
             "Passengers: %s (%s lbs.), Baggage/Cargo: %s lbs, Total %s lbs.\n\n",
@@ -155,6 +182,34 @@ class FlightCostCalculator
             "\nPilot Total Pay:\t%s\n",
             $this->dollars($this->pilot_pay)
         );
+
+        $wx_stations = $origin['icao'] . ',' . $from['icao'] . ',' . $to['icao'];
+        $wx_url = "https://metar.vatsim.net/$wx_stations";
+        echo "Weather:\n" . file_get_contents($wx_url);
+
+        $distances = $this->get_distances($origin, $from, $to);
+        print_r($distances);
+    }
+
+    private function get_distances($origin, $from, $to)
+    {
+        $distances['pickup'] = $this->get_distance($origin, $from);
+        $distances['dropoff'] = $this->get_distance($from, $to);
+        return $distances;
+    }
+
+    private function get_distance($from, $to)
+    {
+        // use the haversine formula to calculate the distance between two points and return the result in nautical miles
+        $lat1 = deg2rad($from['lat']);
+        $lon1 = deg2rad($from['lon']);
+        $lat2 = deg2rad($to['lat']);
+        $lon2 = deg2rad($to['lon']);
+        $dlat = $lat2 - $lat1;
+        $dlon = $lon2 - $lon1;
+        $a = sin($dlat / 2) * sin($dlat / 2) + cos($lat1) * cos($lat2) * sin($dlon / 2) * sin($dlon / 2);
+        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+        return round($c * 3440, 0);
     }
 }
 
