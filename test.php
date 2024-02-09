@@ -91,13 +91,14 @@ class FlightCostCalculator
             exit(1);
         }
         $origin = [
+            'id' => $result['ARPT_ID'],
             'name' => $result['ARPT_NAME'],
             'city' => $result['CITY'],
             'state' => $result['STATE_NAME'],
             'lat' => $result['LAT_DECIMAL'],
             'lon' => $result['LONG_DECIMAL']
         ];
-        print_r($origin);
+        echo ("Current Location: {$origin['id']}\n{$origin['name']}\n{$origin['city']}, {$origin['state']}\n{$origin['lat']}, {$origin['lon']}\n\n");
         print_r($this->results[0]);
         printf(
             "Passengers: %s (%s lbs.), Baggage/Cargo: %s lbs, Total %s lbs.\n\n",
