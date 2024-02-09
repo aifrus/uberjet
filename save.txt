@@ -1,0 +1,33 @@
+[root@mail uberjet]# php test.php
+Array
+(
+    [RCODE] => ATLBMIRP
+    [ORIG] => KATL
+    [DEST] => KBMI
+    [DEPFIX] => EMAHH
+    [ROUTE STRING] => KATL PENCL2 EMAHH CEASE KBMI
+    [DCNTR] => ZTL
+    [ACNTR] => ZAU
+    [TCNTRS] => ZAU ZID ZKC ZME ZTL
+    [COORDREQ] => N
+    [PLAY] =>
+    [NAVEQP] => 2
+    [LENGTH] => 483
+)
+Passengers: 2 (340 lbs.), Baggage/Cargo: 659 lbs, Total 999 lbs.
+
+Item           |Qty.           |Ea.            |Amount         |Total
+Base Fare      |1              |$500.00        |$500.00        |$500.00
+Weight Fee     |999 LBS        |$0.25          |$250.00        |$750.00
+Distance       |483 NM         |$6.25          |$3,019.00      |$3,769.00
+Time           |90 Min         |$3.50          |$315.00        |$4,084.00
+Airport Fees   |2              |$100.00        |$200.00        |$4,284.00
+Excise Tax     |$4,284.00      |7.5%           |$321.00        |$4,605.00
+
+Passenger Total Cost:   $4,605.00
+
+Airport Fees    |$200.00        |$4,405.00
+Excise Tax      |$321.00        |$4,084.00
+Uber Fee        |$461.00        |$3,623.00
+
+Pilot Total Pay:        $3,623.00
