@@ -185,7 +185,7 @@ class FlightCostCalculator
 
         $wx_stations = $origin['icao'] . ',' . $from['icao'] . ',' . $to['icao'];
         $wx_url = "https://metar.vatsim.net/$wx_stations";
-        echo "Weather:\n" . file_get_contents($wx_url);
+        echo "Weather:\n" . file_get_contents($wx_url) . "\n\n";
 
         $distances = $this->get_distances($origin, $from, $to);
         print_r($distances);
