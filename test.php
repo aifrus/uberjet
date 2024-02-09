@@ -90,6 +90,7 @@ class FlightCostCalculator
             echo "Origin airport not found\n";
             exit(1);
         }
+
         $origin = [
             'id' => $result['ARPT_ID'],
             'icao' => 'K' . $result['ARPT_ID'],
@@ -99,13 +100,14 @@ class FlightCostCalculator
             'lat' => $result['LAT_DECIMAL'],
             'lon' => $result['LONG_DECIMAL']
         ];
+
         echo ("Current Location: {$origin['id']}\n{$origin['name']}\n{$origin['city']}, {$origin['state']}\n{$origin['lat']}, {$origin['lon']}\n\n");
 
         $from = substr($this->results[0]['ORIG'], 1);
         $result = $this->sql->query("SELECT * FROM `APT_BASE` WHERE `ARPT_ID` = '$from'")->fetch_assoc();
         $from = [
             'id' => $result['ARPT_ID'],
-            'icao' => 'K' . $result['ARPT_ID'],
+            'icao' => $this->results[0]['ORIG'],
             'name' => $result['ARPT_NAME'],
             'city' => $result['CITY'],
             'state' => $result['STATE_NAME'],
@@ -118,7 +120,7 @@ class FlightCostCalculator
         $result = $this->sql->query("SELECT * FROM `APT_BASE` WHERE `ARPT_ID` = '$to'")->fetch_assoc();
         $to = [
             'id' => $result['ARPT_ID'],
-            'icao' => 'K' . $result['ARPT_ID'],
+            'icao' => $this->results[0]['DEST'],
             'name' => $result['ARPT_NAME'],
             'city' => $result['CITY'],
             'state' => $result['STATE_NAME'],
