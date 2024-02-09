@@ -19,7 +19,7 @@ async function initMap() {
                 stylers: [{ visibility: 'on' }]
             },
             {
-                featureType: 'parks',
+                featureType: 'poi',
                 stylers: [{ visibility: 'off' }]
             },
             {
