@@ -93,6 +93,7 @@ class FlightCostCalculator
         $origin = [
             'id' => $result['ARPT_ID'],
             'icao' => 'K' . $result['ARPT_ID'],
+            'name' => $result['ARPT_NAME'],
             'city' => $result['CITY'],
             'state' => $result['STATE_NAME'],
             'lat' => $result['LAT_DECIMAL'],
