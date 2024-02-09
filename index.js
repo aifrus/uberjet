@@ -27,6 +27,20 @@ async function initMap() {
                 stylers: [{ visibility: 'off' }]
             },
             {
+                featureType: 'administrative',
+                stylers: [{ visibility: 'off' }]
+            },
+            {
+                featureType: 'administrative.country',
+                elementType: 'geometry.stroke',
+                stylers: [{ visibility: 'on' }, { color: '#ffffff' }, { weight: 2 }]
+            },
+            {
+                featureType: 'administrative.province',
+                elementType: 'geometry.stroke',
+                stylers: [{ visibility: 'on' }, { color: '#ffffff' }, { weight: 1 }]
+            },
+            {
                 featureType: 'water',
                 stylers: [{ color: '#000000' }] // black water
             },
