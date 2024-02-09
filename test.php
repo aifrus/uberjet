@@ -90,7 +90,14 @@ class FlightCostCalculator
             echo "Origin airport not found\n";
             exit(1);
         }
-        print_r($result);
+        $origin = [
+            'name' => $result['ARPT_NAME'],
+            'city' => $result['CITY'],
+            'state' => $result['STATE_NAME'],
+            'lat' => $result['LAT_DECIMAL'],
+            'lon' => $result['LONG_DECIMAL']
+        ];
+        print_r($origin);
         print_r($this->results[0]);
         printf(
             "Passengers: %s (%s lbs.), Baggage/Cargo: %s lbs, Total %s lbs.\n\n",
