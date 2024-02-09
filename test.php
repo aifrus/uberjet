@@ -81,8 +81,16 @@ class FlightCostCalculator
         return number_format($in, 0, ".", ",");
     }
 
-    public function displayResults()
+    public function displayResults(string $origin)
     {
+        // try to find the origin in the database
+        $origin = mysqli_real_escape_string($this->sql, $origin);
+        $result = $this->sql->query("SELECT * FROM `APT_BASE` WHERE `ARPT_ID` = '$origin'")->fetch_assoc() ?? null;
+        if (!$result) {
+            echo "Origin airport not found\n";
+            exit(1);
+        }
+        print_r($result);
         print_r($this->results[0]);
         printf(
             "Passengers: %s (%s lbs.), Baggage/Cargo: %s lbs, Total %s lbs.\n\n",
@@ -142,5 +150,21 @@ class FlightCostCalculator
     }
 }
 
+$origin = $argv[1] ?? null;
+
+if (!$origin) {
+    echo "Please provide an origin airport code\n";
+    exit(1);
+}
+
+$length = strlen($origin);
+if ($length < 3 || $length > 4) {
+    echo "Please provide a valid 3 or 4 character airport code\n";
+    exit(1);
+}
+
+$origin = ($length === 4) ? substr($origin, 1) : $origin;
+$origin = strtoupper($origin);
+
 $calculator = new FlightCostCalculator();
-$calculator->displayResults();
+$calculator->displayResults($origin);
