@@ -19,6 +19,10 @@ async function initMap() {
                 stylers: [{ visibility: 'on' }]
             },
             {
+                featureType: 'parks',
+                stylers: [{ visibility: 'off' }]
+            },
+            {
                 featureType: 'road',
                 stylers: [{ visibility: 'off' }]
             },
@@ -28,7 +32,7 @@ async function initMap() {
             },
             {
                 featureType: 'landscape',
-                stylers: [{ color: '#0c0c0c' }] // very dark gray land
+                stylers: [{ color: '#111111' }] // very dark gray land
             }
         ]
     });
