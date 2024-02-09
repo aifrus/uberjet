@@ -4,8 +4,8 @@ async function initMap() {
     const { Map } = await google.maps.importLibrary("maps");
 
     map = new Map(document.getElementById("map"), {
-        center: { lat: -34.397, lng: 150.644 },
-        zoom: 8,
+        center: { lat: 43.6456435, lng: -70.3086164 },
+        zoom: 10,
         disableDefaultUI: true,
         styles: [
             {
@@ -32,7 +32,7 @@ async function initMap() {
             },
             {
                 featureType: 'landscape',
-                stylers: [{ color: '#111111' }] // very dark gray land
+                stylers: [{ color: '#222222' }] // very dark gray land
             }
         ]
     });
