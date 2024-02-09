@@ -32,7 +32,7 @@ async function initMap() {
             },
             {
                 featureType: 'landscape',
-                stylers: [{ color: '#222222' }] // very dark gray land
+                stylers: [{ color: '#111111' }] // very dark gray land
             }
         ]
     });
